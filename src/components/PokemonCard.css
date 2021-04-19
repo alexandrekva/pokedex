@@ -1,0 +1,9 @@
+.card-container {
+    display: table-row;
+    align-items: center;
+    align-content: center;
+}
+
+.pokemon-types {
+    display: flex;
+}

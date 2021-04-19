@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { getAllPokemon, getPokemon } from './services/pokemon';
+import PokemonCard from './components/PokemonCard';
 
 function App() {
   const [pokemonData, setPokemonData] = useState([]);
@@ -8,6 +9,7 @@ function App() {
   const [prevUrl, setPrevUrl] = useState('');
   const [loading, setLoading] = useState(true);
   const initialUrl = 'https://pokeapi.co/api/v2/pokemon';
+
 
   useEffect(() => {
     async function fetchData () {
@@ -27,14 +29,18 @@ function App() {
     }))
 
       setPokemonData(_pokemonData);
+    
   }
 
   return (
     <div>
       {loading ? <h1>Loading...</h1> : (
         <>
+        {console.log(pokemonData)}
         {pokemonData.map((item, index) => {
-          return <div key={index}>{item.name}</div>
+          return (
+            <PokemonCard key={index} pokemon={item}/>
+          )
         })}
         </>
       )}
