@@ -32,8 +32,40 @@ function App() {
     
   }
 
+  const getNextUrlData = () => {
+    setLoading(true)
+    async function fetchData () {
+      let response = await getAllPokemon(nextUrl);
+      setNextUrl(response.next);
+      setPrevUrl(response.previous);
+      await loadingPokemon(response.results);
+      setLoading(false);
+    }
+    fetchData();
+  }
+
+  const getPrevUrlData = () => {
+    setLoading(true)
+    async function fetchData () {
+      let response = await getAllPokemon(prevUrl);
+      setNextUrl(response.next);
+      setPrevUrl(response.previous);
+      await loadingPokemon(response.results);
+      setLoading(false);
+    }
+    fetchData();
+  }
+
   return (
     <div>
+      <div className="header">
+        <h1 className="title">Pokedex</h1>
+        <div className="buttons">
+        {(prevUrl != null) ? <button className="prev-button" onClick={getPrevUrlData}>Previous</button> : <></>}
+        {(nextUrl != null) ? <button className="next-button" onClick={getNextUrlData}>Next</button> : <></>}
+        </div>
+      </div>
+
       {loading ? <h1>Loading...</h1> : (
         <>
         {console.log(pokemonData)}
